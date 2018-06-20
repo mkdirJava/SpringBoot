@@ -10,4 +10,7 @@ import com.wilson.feelings.entities.Person;
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
 	
+	Person findByName(String string);
+
+	
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import com.wilson.feelings.entities.Person;
 import com.wilson.feelings.repositories.PersonRepository;
@@ -30,9 +30,11 @@ public class PersonFeelingsEndPoint {
         return ex.getClass();
 	}
 	
+	@ResponseStatus(code=HttpStatus.ACCEPTED)
 	@RequestMapping("/getPerson/{id}")
 	public Person getPerson(@PathVariable(value="id") Long id) throws PersonNotFoundException 
 	{
+		
 		Optional<Person> optionalPerson = personRepo.findById(id);
 		if(optionalPerson.isPresent()) {
 			return optionalPerson.get();
@@ -42,21 +44,16 @@ public class PersonFeelingsEndPoint {
 		
 	}
 	
+	@ResponseStatus(code=HttpStatus.ACCEPTED)
 	@RequestMapping("/deletePerson/{id}")
-	@ResponseBody
-	public Person deletePerson(@PathVariable(value="id") Long id) throws PersonNotFoundException 
+	public void deletePerson(@PathVariable(value="id") Long id) throws PersonNotFoundException 
 	{
-		Optional<Person> optionalPerson = personRepo.findById(id);
-		if(optionalPerson.isPresent()) {
-			return optionalPerson.get();
-		}else {
-			throw new PersonNotFoundException(String.valueOf(id));
-		}
+		personRepo.deleteById(id);
 		
 	}
 	
+	@ResponseStatus(code=HttpStatus.ACCEPTED)
 	@RequestMapping("/updatePerson/{id}")
-	@ResponseBody
 	public Person updatePerson(@PathVariable(value="id") Long id) throws PersonNotFoundException 
 	{
 		Optional<Person> optionalPerson = personRepo.findById(id);
