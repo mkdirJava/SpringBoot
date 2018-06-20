@@ -3,29 +3,34 @@ package com.wilson.feelings.restEndPoints;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.wilson.feelings.entities.Person;
 import com.wilson.feelings.repositories.PersonRepository;
 import com.wilson.feelings.restEndPoints.exception.PersonNotFoundException;
 
-@Controller
+@RestController
 public class PersonFeelingsEndPoint {
 	
 	@Autowired
 	private PersonRepository personRepo;
 	
-	@RequestMapping("/hi")
-	public ModelAndView sent() {
-		return new ModelAndView("home");
+	@ExceptionHandler(PersonNotFoundException.class)
+	@ResponseStatus(code=HttpStatus.INTERNAL_SERVER_ERROR)
+	public Object sent(Exception ex) {
+		String result = ex.getLocalizedMessage();
+        System.out.println("###########"+result);
+        return ex.getClass();
 	}
 	
 	@RequestMapping("/getPerson/{id}")
-	@ResponseBody
 	public Person getPerson(@PathVariable(value="id") Long id) throws PersonNotFoundException 
 	{
 		Optional<Person> optionalPerson = personRepo.findById(id);
@@ -75,15 +80,5 @@ public class PersonFeelingsEndPoint {
 		}
 		
 	}
-	
-	
-//	
-//	@RequestMapping("/error")
-//	@ResponseBody
-//	public String error() {
-//		return "hi";
-//		
-//	}
-
 	
 }
