@@ -32,7 +32,8 @@ public class PersonFeelingsEndPoint {
 	@RequestMapping(value="/getPerson/{id}",method=RequestMethod.GET)
 	public String getPerson(@PathVariable(value="id") Long id) throws PersonNotFoundException 
 	{
-		
+		if(id >10)
+			throw new PersonNotFoundException(id.toString());
 		return "Hi";
 	}
 	
