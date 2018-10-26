@@ -1,6 +1,4 @@
-package com.wilson.feelings.test.integration;
-
-
+package com.wilson.feelings.tests.integration;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -15,29 +13,21 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.wilson.feelings.entities.Person;
-import com.wilson.feelings.repositories.PersonRepository;
-import com.wilson.feelings.service.person.PersonServiceImpl;
+import com.wilson.feelings.service.person.PersonService;
 import com.wilson.feelings.service.person.exception.PersonNotFoundException;
-
-import ch.qos.logback.core.net.SyslogOutputStream;
-
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(value="SpringBootTest.WebEnvironment.MOCK")
+@SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @TestPropertySource(
   locations = "classpath:application-integration-test.properties")
 public class IntegrationTest {
 
-	@Autowired
-    private MockMvc mvc;
 	
-	@Autowired
-	private PersonRepository personRepo;
 	
 	@Autowired 
-	private PersonServiceImpl personSerivce;
+	private PersonService personSerivce;
 	
 	@Test
 	public void test() {

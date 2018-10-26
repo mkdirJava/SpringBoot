@@ -1,4 +1,4 @@
-package com.wilson.feelings.DTO;
+package com.wilson.feelings.entities.dto;
 
 import com.wilson.feelings.entities.Person;
 

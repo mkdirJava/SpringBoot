@@ -4,14 +4,11 @@ import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.wilson.feelings.entities.Person;
+import com.wilson.feelings.entities.Feeling;
 
 
 @Transactional
-public interface PersonRepository extends JpaRepository<Person, Long> {
-
-	
-	Person findByName(String string);
+public interface FeelingRepository extends JpaRepository<Feeling, Long> {
 
 	
 }
